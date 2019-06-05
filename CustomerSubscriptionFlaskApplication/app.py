@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'gerardsecret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customerservice.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Vo8HGsZqQ0qb9ums@localhost/admin'
 
 db = SQLAlchemy(app)
 
