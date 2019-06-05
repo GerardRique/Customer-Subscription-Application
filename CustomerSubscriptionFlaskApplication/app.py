@@ -1,11 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import datetime
 import os
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
+import jwt
 
+from functools import wraps
 
 
 app = Flask(__name__)
@@ -45,10 +47,33 @@ class Service(db.Model):
     name = db.Column(db.String(50), nullable=False)
     price = db.Column(db.Float, nullable=False)
 
+class Agent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
 
 
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
 
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+
+        if not token:
+            return jsonify({'mesage': 'Token is missing'}), 401
+        
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            current_user = Agent.query.get(data['id'])
+        except:
+            return jsonify({'message': 'Token is invalid'}), 401
+
+        return f(current_user, *args, **kwargs)
+
+    return decorated
 
 
 @app.route('/customer', methods=['GET'])
@@ -154,6 +179,42 @@ def get_subscriptions(customer_id):
 
 
     return jsonify({'status': 200, 'services': result})
+
+@app.route('/signup', methods=['POST'])
+def sign_up():
+    request_data = request.get_json()
+
+    hashed_password = generate_password_hash(request_data['password'], method='sha256')
+    print(hashed_password)
+
+    new_agent = Agent(email=request_data['email'], password=hashed_password)
+    db.session.add(new_agent)
+    db.session.commit()
+
+    return jsonify({'status': 200, 'message': 'Agent Successfully created'})
+
+
+@app.route('/login')
+def login():
+    auth = request.authorization
+
+    if not auth or not auth.username or not auth.password:
+        return make_response('Could not Authenticate 1', 401, {'WWW-Authenicate': 'Basic realm="Login required!"'})
+
+    agent = Agent.query.filter_by(email=auth.username).first()
+
+    if not agent:
+        return make_response('Could not Authenticate 2', 401, {'WWW-Authenicate': 'Basic realm="Agent not found!"'})
+
+    print(agent.email)
+    print(agent.password)
+
+    if check_password_hash(agent.password, auth.password):
+        token = jwt.encode({'id': agent.id, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+        return jsonify({'token': token.decode('UTF-8')})
+
+    return make_response('Could not Authenticate 3', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
+
 
 if __name__=='__main__':
     app.run(debug=True)
