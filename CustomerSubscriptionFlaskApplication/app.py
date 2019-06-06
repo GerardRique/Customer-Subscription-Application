@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import datetime
@@ -11,9 +12,12 @@ from functools import wraps
 
 
 app = Flask(__name__)
+cors = CORS(app)
 
 app.config['SECRET_KEY'] = 'gerardsecret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Vo8HGsZqQ0qb9ums@localhost/admin'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://gerard:gerardpass1@gerardcustomersubscription.cfmqsbqtrhb4.us-east-2.rds.amazonaws.com/gerard'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 db = SQLAlchemy(app)
 
@@ -77,6 +81,7 @@ def token_required(f):
 
 
 @app.route('/customer', methods=['GET'])
+@cross_origin()
 def get_all_customers():
     customers = Customer.query.all()
     result = []
@@ -93,6 +98,7 @@ def get_all_customers():
     return jsonify({'customers': result})
 
 @app.route('/customer/<id>', methods=['GET'])
+@cross_origin()
 def get_customer(id):
     customer = Customer.query.get(id)
 
@@ -108,6 +114,7 @@ def get_customer(id):
     return jsonify({'status': 200, 'customer': customer_data})
 
 @app.route('/customer', methods=['POST'])
+@cross_origin()
 def create_customer():
     data = request.get_json()
     new_customer = Customer(first_name=data['first_name'], last_name = data['last_name'], email=data['email'], phone_number=data['phone_number'])
@@ -121,6 +128,7 @@ def update_customer():
 
 
 @app.route('/service', methods=['GET'])
+@cross_origin()
 def get_all_services():
     services = Service.query.all()
     result = []
@@ -135,6 +143,7 @@ def get_all_services():
     return jsonify({'status': 200, 'services': result})
 
 @app.route('/service', methods=['POST'])
+@cross_origin()
 def create_service():
     data = request.get_json()
     new_service = Service(name=data['name'], price=data['price'])
@@ -143,6 +152,7 @@ def create_service():
     return jsonify({'status': 200, 'message':'Service successfully created'})
 
 @app.route('/service/<id>', methods=['GET'])
+@cross_origin()
 def get_service(id):
     service = Service.query.get(id)
 
@@ -157,6 +167,7 @@ def get_service(id):
     return jsonify({'status': 200, 'service': service_data})
 
 @app.route('/subscribe', methods=['POST'])
+@cross_origin()
 def subscribe_customer():
     data = request.get_json()
     new_subscription = Subscription(customer_id=data['customer_id'], service_id=data['service_id'])
@@ -165,6 +176,7 @@ def subscribe_customer():
     return jsonify({'status': 200, 'message':'User successfully subscribed to service'})
 
 @app.route('/subscribe/<customer_id>', methods=['GET'])
+@cross_origin()
 def get_subscriptions(customer_id):
     customer = Customer.query.get(customer_id)
     subscriptions = customer.subscriptions
@@ -181,6 +193,7 @@ def get_subscriptions(customer_id):
     return jsonify({'status': 200, 'services': result})
 
 @app.route('/signup', methods=['POST'])
+@cross_origin()
 def sign_up():
     request_data = request.get_json()
 
@@ -195,6 +208,7 @@ def sign_up():
 
 
 @app.route('/login')
+@cross_origin()
 def login():
     auth = request.authorization
 

@@ -6,17 +6,23 @@ import { AppComponent } from './app.component';
 import { CustomerListingComponent } from './customer-listing/customer-listing.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NewCustomerComponent } from './new-customer/new-customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerListingComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    NewCustomerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

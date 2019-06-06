@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-customer-listing',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerListingComponent implements OnInit {
 
-  constructor() { }
+  customers: Array<Object>;
+
+  constructor(private router: Router, private http: HttpClient) { 
+    this.customers = Array<Object>();
+  }
 
   ngOnInit() {
+    let result = this.http.get("http://127.0.0.1:5000/customer");
+
+    result.subscribe((response) => {
+      this.customers = response['customers'];
+      console.log(this.customers);
+    })
   }
 
 }
