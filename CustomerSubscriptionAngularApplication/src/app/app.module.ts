@@ -9,6 +9,8 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
+import { EditCustomerComponent } from './edit-customer/edit-customer.component';
+import { SubscribeServiceComponent } from './subscribe-service/subscribe-service.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { NewCustomerComponent } from './new-customer/new-customer.component';
     CustomerListingComponent,
     LoginComponent,
     SignupComponent,
-    NewCustomerComponent
+    NewCustomerComponent,
+    EditCustomerComponent,
+    SubscribeServiceComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@
       <td>{{customer.last_name}}</td>
       <td>{{customer.email}}</td>
       <td>{{customer.phone_number}}</td>
+      <td><button type="button" class="btn btn-success" (click)="goToEditPage(customer.id)">Edit</button></td>
     </tr>
   </tbody>
 </table>

@@ -1,0 +1,15 @@
+<table class="table table-bordered" >
+  <thead>
+    <th>Service Name</th>
+    <th>Price</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let service of serviceListing">
+      <td>{{service.name}}</td>
+      <td>{{service.price}}</td>
+      <td *ngIf="service.subscribed === false"><button type="button" (click)="subscribe(service.id)" class="btn btn-success">Subscribe</button></td>
+      <td *ngIf="service.subscribed === true"><button type="button" class="btn btn-danger">Un-subscribe</button></td>
+    </tr>
+  </tbody>
+</table>

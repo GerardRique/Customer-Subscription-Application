@@ -25,4 +25,9 @@ export class CustomerListingComponent implements OnInit {
     })
   }
 
+  goToEditPage(id){
+    let editRoute = '/edit/' + id;
+    this.router.navigate(['/edit', id]);
+  }
+
 }

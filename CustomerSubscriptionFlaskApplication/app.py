@@ -179,6 +179,12 @@ def subscribe_customer():
 @cross_origin()
 def get_subscriptions(customer_id):
     customer = Customer.query.get(customer_id)
+
+    ref = Subscription.query.join(Customer).join(Service)
+    for data in ref:
+        # print(data.customer.name)
+        print(data.active)
+
     subscriptions = customer.subscriptions
     result = []
     
