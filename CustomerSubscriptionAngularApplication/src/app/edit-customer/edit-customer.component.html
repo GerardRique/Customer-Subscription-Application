@@ -3,11 +3,13 @@
   <thead>
     <th>Service Name</th>
     <th>Price</th>
+    <th>Date Subscribed</th>
   </thead>
   <tbody>
     <tr *ngFor="let service of services">
-      <td>{{service.name}}</td>
-      <td>{{service.price}}</td>
+      <td>{{service.service_name}}</td>
+      <td>{{service.service_price}}</td>
+      <td>{{service.date_subscribed}}</td>
     </tr>
   </tbody>
 </table>

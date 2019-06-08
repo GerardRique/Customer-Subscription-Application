@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert2';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-new-customer',
@@ -33,7 +34,7 @@ export class NewCustomerComponent implements OnInit {
       'phone_number': this.customer.contactNumber
     };
 
-    let result = this.http.post("http://3.14.143.5:80/customer", postData);
+    let result = this.http.post(UtilsService.API_URL + "/customer", postData);
 
     result.subscribe((response) => {
       console.log(response);

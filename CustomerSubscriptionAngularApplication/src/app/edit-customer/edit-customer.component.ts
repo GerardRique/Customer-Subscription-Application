@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -23,9 +24,10 @@ export class EditCustomerComponent implements OnInit {
       console.log(params);
       let id = params['id'];
       this.customerId = params['id'];
-      let result = this.http.get("http://127.0.0.1:5000/subscribe/" + id);
+      let result = this.http.get(UtilsService.API_URL + "/subscribe/" + id);
 
       result.subscribe((response) => {
+        console.log(response);
         this.services = response['services'];
         if(this.services.length > 0)
           this.subscribedToServices = true;

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import swal from 'sweetalert2';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-signup',
@@ -25,13 +26,13 @@ export class SignupComponent implements OnInit {
 
     let post_data = {
       email: this.data.email,
-      password: this.data.email
+      password: this.data.password
     };
 
     let headers = new Headers({'Content-Type': 'application/json'});
     // let options = new RequestOp
 
-    let result = this.http.post("http://3.14.143.5:80/signup", post_data);
+    let result = this.http.post(UtilsService.API_URL + "/signup", post_data);
 
     result.subscribe(response => {
       console.log(response);

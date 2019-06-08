@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-customer-listing',
@@ -17,7 +17,7 @@ export class CustomerListingComponent implements OnInit {
   }
 
   ngOnInit() {
-    let result = this.http.get("http://3.14.143.5:80/customer");
+    let result = this.http.get(UtilsService.API_URL + "/customer");
 
     result.subscribe((response) => {
       this.customers = response['customers'];

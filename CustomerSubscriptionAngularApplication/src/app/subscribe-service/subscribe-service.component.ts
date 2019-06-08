@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import swal from 'sweetalert2';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-subscribe-service',
@@ -24,13 +26,13 @@ export class SubscribeServiceComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.customerId = params['id'];
-      let result = this.http.get("http://127.0.0.1:5000/service");
+      let result = this.http.get(UtilsService.API_URL + "/service");
 
       result.subscribe((response) => {
         this.serviceListing = response['services'];
         console.log(this.serviceListing)
 
-        this.http.get("http://127.0.0.1:5000/subscribe/" + this.customerId).subscribe((serviceResponse) => {
+        this.http.get(UtilsService.API_URL + "/subscribe/" + this.customerId).subscribe((serviceResponse) => {
           this.customerServices = serviceResponse['services']
           console.log(this.customerServices);
 
@@ -59,9 +61,39 @@ export class SubscribeServiceComponent implements OnInit {
       'service_id': serviceId
     };
 
-    this.http.post("http://127.0.0.1:5000/subscribe", postData).subscribe((response) => {
+    this.http.post(UtilsService.API_URL + "/subscribe", postData).subscribe((response) => {
       console.log(response);
+      if(response['status'] === 200){
+        this.displaySuccessfullAlert();
+        this.router.navigate(['/edit', this.customerId]);
+      }
+      else{
+        this.displayErrorMessage('Subscription Error', 'Error adding subscription')
+      }
     })
+  }
+
+  public displaySuccessfullAlert(){
+    const toast = swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    
+    toast.fire({
+      type: 'success',
+      title: 'Successfully created new customer'
+    })
+  }
+
+  public displayErrorMessage(titleString: string, textString: string){
+    swal.fire({
+      title: titleString,
+      text: textString,
+      type: 'error',
+      confirmButtonText: 'cool'
+    });
   }
 
 }
