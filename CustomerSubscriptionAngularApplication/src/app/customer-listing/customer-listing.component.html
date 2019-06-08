@@ -1,3 +1,4 @@
+<input [(ngModel)]="searchText" placeholder="Search Customer">
 <table class="table table-bordered">
   <thead>
     <th>First Name</th>
@@ -6,7 +7,7 @@
     <th>Contact Number</th>
   </thead>
   <tbody>
-    <tr *ngFor="let customer of customers">
+    <tr *ngFor="let customer of customers | filter : searchText">
       <td>{{customer.first_name}}</td>
       <td>{{customer.last_name}}</td>
       <td>{{customer.email}}</td>
@@ -15,3 +16,4 @@
     </tr>
   </tbody>
 </table>
+<button type="button" class="btn btn-primary" (click)="createCustomerPage()">Create New Customer</button>

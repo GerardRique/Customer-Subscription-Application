@@ -17,7 +17,7 @@ export class CustomerListingComponent implements OnInit {
   }
 
   ngOnInit() {
-    let result = this.http.get("http://127.0.0.1:5000/customer");
+    let result = this.http.get("http://3.14.143.5:80/customer");
 
     result.subscribe((response) => {
       this.customers = response['customers'];
@@ -28,6 +28,9 @@ export class CustomerListingComponent implements OnInit {
   goToEditPage(id){
     let editRoute = '/edit/' + id;
     this.router.navigate(['/edit', id]);
+  }
+  createCustomerPage(){
+    this.router.navigate(['/newcustomer']);
   }
 
 }

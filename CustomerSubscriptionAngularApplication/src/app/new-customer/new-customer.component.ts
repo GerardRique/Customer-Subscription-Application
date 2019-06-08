@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-customer',
@@ -33,11 +33,41 @@ export class NewCustomerComponent implements OnInit {
       'phone_number': this.customer.contactNumber
     };
 
-    let result = this.http.post("http://127.0.0.1:5000/customer", postData);
+    let result = this.http.post("http://3.14.143.5:80/customer", postData);
 
     result.subscribe((response) => {
       console.log(response);
+      if(response['status'] === 200){
+        this.displaySuccessfullAlert();
+        this.router.navigate(['/customerlisting']);
+      }
+      else{
+        this.displayErrorMessage('Error creating customer', 'Please try again');
+      }
     })
+  }
+
+  public displaySuccessfullAlert(){
+    const toast = swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+    
+    toast.fire({
+      type: 'success',
+      title: 'Successfully created new customer'
+    })
+  }
+
+  public displayErrorMessage(titleString: string, textString: string){
+    swal.fire({
+      title: titleString,
+      text: textString,
+      type: 'error',
+      confirmButtonText: 'cool'
+    });
   }
 
 }

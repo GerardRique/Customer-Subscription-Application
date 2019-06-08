@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy import update
 from flask_login import LoginManager
 import datetime
 import os
@@ -22,13 +24,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 db = SQLAlchemy(app)
 
 
-class Subscription(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
-    service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
-    active = db.Column(db.Boolean, default=True, nullable=False)
-    date_subscribed = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
-    date_unsubscribed = db.Column(db.DateTime, nullable=True)
 
 # subscription = db.Table('subscription', 
 #     db.Column('customer_id', db.Integer, db.ForeignKey('customer.id')),
@@ -55,6 +50,16 @@ class Agent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+
+class Subscription(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
+    active = db.Column(db.Boolean, default=True, nullable=False)
+    date_subscribed = db.Column(db.DateTime, default=datetime.datetime.utcnow, nullable=False)
+    date_unsubscribed = db.Column(db.DateTime, nullable=True)
+    customer = relationship(Customer, backref=backref("customer_assoc"))
+    service = relationship(Service, backref=backref("service_assoc"))
 
 
 
@@ -175,6 +180,29 @@ def subscribe_customer():
     db.session.commit()
     return jsonify({'status': 200, 'message':'User successfully subscribed to service'})
 
+@app.route('/unsubscribe', methods=['POST'])
+@cross_origin()
+def unsubscribe_customer():
+    data = request.get_json()
+    my_customer_id = data['customer_id']
+    my_service_id = data['service_id']
+
+    data = Subscription.query.filter_by(service_id=my_service_id).filter_by(customer_id=my_customer_id).filter_by(active=True).first()
+    # result = update(Subscription).where(Subscription.customer_id = my_customer_id).values(active=False)
+    if data != None:
+        print(data)
+        data.date_unsubscribed=datetime.datetime.now()
+        data.active=False
+        db.session.commit()
+        return jsonify({'status': 200, 'message':'User successfully un-subscribed to service'})
+    else:
+        print("User not subscribed to this service")
+
+    return jsonify({'status': 200, 'message':'Server Error'})
+
+    
+
+
 @app.route('/subscribe/<customer_id>', methods=['GET'])
 @cross_origin()
 def get_subscriptions(customer_id):
@@ -182,18 +210,21 @@ def get_subscriptions(customer_id):
 
     ref = Subscription.query.join(Customer).join(Service)
     for data in ref:
-        # print(data.customer.name)
+        print(data.customer.first_name)
         print(data.active)
 
     subscriptions = customer.subscriptions
     result = []
-    
-    for service in subscriptions:
+
+    for subscription in ref:
         service_data = {}
-        service_data['id'] = service.id
-        service_data['name'] = service.name
-        service_data['price'] = service.price
+        service_data['id'] = subscription.id
+        service_data['service_id'] = subscription.service.id
+        service_data['service_price'] = subscription.service.price
+        service_data['service_name'] = subscription.service.name
+        service_data['date_subscribed'] = subscription.date_subscribed
         result.append(service_data)
+
 
 
     return jsonify({'status': 200, 'services': result})
@@ -237,4 +268,4 @@ def login():
 
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=80)

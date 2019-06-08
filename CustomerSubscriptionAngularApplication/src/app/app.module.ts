@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NewCustomerComponent } from './new-customer/new-customer.component';
 import { EditCustomerComponent } from './edit-customer/edit-customer.component';
 import { SubscribeServiceComponent } from './subscribe-service/subscribe-service.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SubscribeServiceComponent } from './subscribe-service/subscribe-service
     SignupComponent,
     NewCustomerComponent,
     EditCustomerComponent,
-    SubscribeServiceComponent
+    SubscribeServiceComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

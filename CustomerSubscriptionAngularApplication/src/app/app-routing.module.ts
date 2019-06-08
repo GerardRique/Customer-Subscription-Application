@@ -11,7 +11,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'newcustomer', component: NewCustomerComponent },
   { path: 'edit/:id', component: EditCustomerComponent},
-  { path: 'subscribe/:id', component: SubscribeServiceComponent}
+  { path: 'subscribe/:id', component: SubscribeServiceComponent},
+  { path: '', component: SignupComponent },
+  { path: '**', component: SignupComponent }
 ];
 
 @NgModule({
