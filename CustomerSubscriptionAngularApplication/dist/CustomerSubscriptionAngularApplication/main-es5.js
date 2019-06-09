@@ -52,7 +52,7 @@ module.exports = "<input [(ngModel)]=\"searchText\" placeholder=\"Search Custome
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 *ngIf=\"subscribedToServices === false\">No services found</h2>\n<table class=\"table table-bordered\" *ngIf=\"subscribedToServices === true\">\n  <thead>\n    <th>Service Name</th>\n    <th>Price</th>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let service of services\">\n      <td>{{service.name}}</td>\n      <td>{{service.price}}</td>\n    </tr>\n  </tbody>\n</table>\n<button type=\"button\" class=\"btn btn-primary\" (click)=\"goToSubscribePage()\">Subscribe to service</button>\n"
+module.exports = "<h2 *ngIf=\"subscribedToServices === false\">No services found</h2>\n<table class=\"table table-bordered\" *ngIf=\"subscribedToServices === true\">\n  <thead>\n    <th>Service Name</th>\n    <th>Price</th>\n    <th>Date Subscribed</th>\n  </thead>\n  <tbody>\n    <tr *ngFor=\"let service of services\">\n      <td>{{service.service_name}}</td>\n      <td>{{service.service_price}}</td>\n      <td>{{service.date_subscribed}}</td>\n    </tr>\n  </tbody>\n</table>\n<button type=\"button\" class=\"btn btn-primary\" (click)=\"goToSubscribePage()\">Subscribe to service</button>\n"
 
 /***/ }),
 
@@ -63,7 +63,7 @@ module.exports = "<h2 *ngIf=\"subscribedToServices === false\">No services found
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-form\">    \n  <form action=\"/examples/actions/confirmation.php\" method=\"post\">\n  <div class=\"avatar\"><i class=\"material-icons\">&#xE7FF;</i></div>\n    <h4 class=\"modal-title\">Login to Your Account</h4>\n      <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" placeholder=\"Username\" required=\"required\">\n      </div>\n      <div class=\"form-group\">\n          <input type=\"password\" class=\"form-control\" placeholder=\"Password\" required=\"required\">\n      </div>\n      <div class=\"form-group small clearfix\">\n          <label class=\"checkbox-inline\"><input type=\"checkbox\"> Remember me</label>\n          <a href=\"#\" class=\"forgot-link\">Forgot Password?</a>\n      </div> \n      <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" value=\"Login\">              \n  </form>\t\t\t\n  <div class=\"text-center small\">Don't have an account? <a href=\"#\">Sign up</a></div>\n</div>"
+module.exports = "<div class=\"login-form\">    \n  <form action=\"/examples/actions/confirmation.php\" method=\"post\">\n  <div class=\"avatar\"><i class=\"material-icons\">&#xE7FF;</i></div>\n    <h4 class=\"modal-title\">Login to Your Account</h4>\n      <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" [(ngModel)]=\"data.email\" name=\"email\" placeholder=\"Username\" required=\"required\">\n      </div>\n      <div class=\"form-group\">\n          <input type=\"password\" class=\"form-control\" [(ngModel)]=\"data.password\" name=\"password\" placeholder=\"Password\" required=\"required\">\n      </div>\n      <div class=\"form-group small clearfix\">\n          <label class=\"checkbox-inline\"><input type=\"checkbox\"> Remember me</label>\n          <a href=\"#\" class=\"forgot-link\">Forgot Password?</a>\n      </div> \n      <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" (click)=\"logIn()\" value=\"Login\">              \n  </form>\t\t\t\n  <div class=\"text-center small\">Don't have an account? <a routerLink=\"/signup\">Sign Up</a></div>\n</div>"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ module.exports = "<form>\n  <div class=\"form-group\">\n    <label for=\"firstNa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-form\">    \n  <form >\n  <div class=\"avatar\"><i class=\"material-icons\">face</i></div>\n    <h4 class=\"modal-title\">Sign up for an Account</h4>\n      <div class=\"form-group\">\n          <input type=\"email\" class=\"form-control\" id=\"myemail\" [(ngModel)]=\"data.email\" name=\"email\" placeholder=\"Email\" required=\"required\">\n      </div>\n      <div class=\"form-group\">\n          <input type=\"password\" class=\"form-control\" [(ngModel)]=\"data.password\" name=\"password\" placeholder=\"Password\" required=\"required\">\n      </div>\n      <div class=\"form-group small clearfix\">\n          <label class=\"checkbox-inline\"><input type=\"checkbox\"> Remember me</label>\n      </div> \n      <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" (click)=\"signUp()\" value=\"Sign up\">              \n  </form>\t\t\t\n  <div class=\"text-center small\">Already have an account? <a href=\"#\">Log in</a></div>\n</div>"
+module.exports = "<div class=\"login-form\">    \n  <form >\n  <div class=\"avatar\"><i class=\"material-icons\">face</i></div>\n    <h4 class=\"modal-title\">Sign up for an Account</h4>\n      <div class=\"form-group\">\n          <input type=\"email\" class=\"form-control\" id=\"myemail\" [(ngModel)]=\"data.email\" name=\"email\" placeholder=\"Email\" required=\"required\">\n      </div>\n      <div class=\"form-group\">\n          <input type=\"password\" class=\"form-control\" [(ngModel)]=\"data.password\" name=\"password\" placeholder=\"Password\" required=\"required\">\n      </div>\n      <div class=\"form-group small clearfix\">\n          <label class=\"checkbox-inline\"><input type=\"checkbox\"> Remember me</label>\n      </div> \n      <input type=\"submit\" class=\"btn btn-primary btn-block btn-lg\" (click)=\"signUp()\" value=\"Sign up\">              \n  </form>\t\t\t\n  <div class=\"text-center small\">Already have an account? <a routerLink=\"/login\">Sign up</a></div>\n</div>"
 
 /***/ }),
 
@@ -118,6 +118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _new_customer_new_customer_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./new-customer/new-customer.component */ "./src/app/new-customer/new-customer.component.ts");
 /* harmony import */ var _edit_customer_edit_customer_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit-customer/edit-customer.component */ "./src/app/edit-customer/edit-customer.component.ts");
 /* harmony import */ var _subscribe_service_subscribe_service_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./subscribe-service/subscribe-service.component */ "./src/app/subscribe-service/subscribe-service.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+
 
 
 
@@ -127,13 +129,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_8__["LoginComponent"] },
     { path: 'customerlisting', component: _customer_listing_customer_listing_component__WEBPACK_IMPORTED_MODULE_3__["CustomerListingComponent"] },
     { path: 'signup', component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_4__["SignupComponent"] },
     { path: 'newcustomer', component: _new_customer_new_customer_component__WEBPACK_IMPORTED_MODULE_5__["NewCustomerComponent"] },
     { path: 'edit/:id', component: _edit_customer_edit_customer_component__WEBPACK_IMPORTED_MODULE_6__["EditCustomerComponent"] },
     { path: 'subscribe/:id', component: _subscribe_service_subscribe_service_component__WEBPACK_IMPORTED_MODULE_7__["SubscribeServiceComponent"] },
     { path: '', component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_4__["SignupComponent"] },
-    { path: '**', component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_4__["SignupComponent"] }
+    { path: '**', component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_4__["SignupComponent"] },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -289,6 +292,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
+
 
 
 
@@ -301,7 +306,7 @@ var CustomerListingComponent = /** @class */ (function () {
     }
     CustomerListingComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var result = this.http.get("http://3.14.143.5:80/customer");
+        var result = this.http.get(_utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"].API_URL + "/customer");
         result.subscribe(function (response) {
             _this.customers = response['customers'];
             console.log(_this.customers);
@@ -354,6 +359,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
+
 
 
 
@@ -372,8 +379,9 @@ var EditCustomerComponent = /** @class */ (function () {
             console.log(params);
             var id = params['id'];
             _this.customerId = params['id'];
-            var result = _this.http.get("http://127.0.0.1:5000/subscribe/" + id);
+            var result = _this.http.get(_utils_service__WEBPACK_IMPORTED_MODULE_4__["UtilsService"].API_URL + "/subscribe/" + id);
             result.subscribe(function (response) {
+                console.log(response);
                 _this.services = response['services'];
                 if (_this.services.length > 0)
                     _this.subscribedToServices = true;
@@ -462,12 +470,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
+
+
+
+
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(router, http) {
+        this.router = router;
+        this.http = http;
+        this.data = { "email": "", password: "" };
     }
     LoginComponent.prototype.ngOnInit = function () {
+        this.data = { "email": "", "password": "" };
+    };
+    LoginComponent.prototype.logIn = function () {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + btoa(this.data.email + ':' + this.data.password)
+            })
+        };
+        var result = this.http.get(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + '/login', httpOptions);
+        result.subscribe(function (response) {
+            console.log(response);
+            if ('token' in response) {
+                _this.displaySuccessfullSignInAlert();
+                _this.router.navigate(['/customerlisting']);
+            }
+            else {
+                _this.displayErrorMessage('Error', 'Error signing in');
+            }
+        });
+    };
+    LoginComponent.prototype.displaySuccessfullSignInAlert = function () {
+        var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        toast.fire({
+            type: 'success',
+            title: 'Signed in successfully'
+        });
+    };
+    LoginComponent.prototype.displayErrorMessage = function (errorTitle, errorText) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+            type: 'error',
+            title: errorTitle,
+            text: errorText
+        });
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -475,7 +535,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./login.component.html */ "./node_modules/raw-loader/index.js!./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -511,6 +571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
+
 
 
 
@@ -538,7 +600,7 @@ var NewCustomerComponent = /** @class */ (function () {
             'email': this.customer.email,
             'phone_number': this.customer.contactNumber
         };
-        var result = this.http.post("http://3.14.143.5:80/customer", postData);
+        var result = this.http.post(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + "/customer", postData);
         result.subscribe(function (response) {
             console.log(response);
             if (response['status'] === 200) {
@@ -612,9 +674,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
 
 
 //import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -632,11 +696,11 @@ var SignupComponent = /** @class */ (function () {
         console.log(this.data.password);
         var post_data = {
             email: this.data.email,
-            password: this.data.email
+            password: this.data.password
         };
         var headers = new Headers({ 'Content-Type': 'application/json' });
         // let options = new RequestOp
-        var result = this.http.post("http://3.14.143.5:80/signup", post_data);
+        var result = this.http.post(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + "/signup", post_data);
         result.subscribe(function (response) {
             console.log(response);
             if (response['status'] === 200) {
@@ -707,6 +771,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils.service */ "./src/app/utils.service.ts");
+
+
 
 
 
@@ -725,11 +794,11 @@ var SubscribeServiceComponent = /** @class */ (function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             _this.customerId = params['id'];
-            var result = _this.http.get("http://127.0.0.1:5000/service");
+            var result = _this.http.get(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + "/service");
             result.subscribe(function (response) {
                 _this.serviceListing = response['services'];
                 console.log(_this.serviceListing);
-                _this.http.get("http://127.0.0.1:5000/subscribe/" + _this.customerId).subscribe(function (serviceResponse) {
+                _this.http.get(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + "/subscribe/" + _this.customerId).subscribe(function (serviceResponse) {
                     _this.customerServices = serviceResponse['services'];
                     console.log(_this.customerServices);
                     for (var _i = 0, _a = _this.serviceListing; _i < _a.length; _i++) {
@@ -751,12 +820,40 @@ var SubscribeServiceComponent = /** @class */ (function () {
         });
     };
     SubscribeServiceComponent.prototype.subscribe = function (serviceId) {
+        var _this = this;
         var postData = {
             'customer_id': this.customerId,
             'service_id': serviceId
         };
-        this.http.post("http://127.0.0.1:5000/subscribe", postData).subscribe(function (response) {
+        this.http.post(_utils_service__WEBPACK_IMPORTED_MODULE_5__["UtilsService"].API_URL + "/subscribe", postData).subscribe(function (response) {
             console.log(response);
+            if (response['status'] === 200) {
+                _this.displaySuccessfullAlert();
+                _this.router.navigate(['/edit', _this.customerId]);
+            }
+            else {
+                _this.displayErrorMessage('Subscription Error', 'Error adding subscription');
+            }
+        });
+    };
+    SubscribeServiceComponent.prototype.displaySuccessfullAlert = function () {
+        var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        toast.fire({
+            type: 'success',
+            title: 'Successfully created new customer'
+        });
+    };
+    SubscribeServiceComponent.prototype.displayErrorMessage = function (titleString, textString) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+            title: titleString,
+            text: textString,
+            type: 'error',
+            confirmButtonText: 'cool'
         });
     };
     SubscribeServiceComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -768,6 +865,37 @@ var SubscribeServiceComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
     ], SubscribeServiceComponent);
     return SubscribeServiceComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/utils.service.ts":
+/*!**********************************!*\
+  !*** ./src/app/utils.service.ts ***!
+  \**********************************/
+/*! exports provided: UtilsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UtilsService", function() { return UtilsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var UtilsService = /** @class */ (function () {
+    function UtilsService() {
+    }
+    UtilsService.API_URL = 'https://polar-ocean-52767.herokuapp.com';
+    UtilsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], UtilsService);
+    return UtilsService;
 }());
 
 
