@@ -25,6 +25,10 @@ export class NewCustomerComponent implements OnInit {
   }
 
   public createCustomer(){
+    if((this.customer.firstName.localeCompare("") ===0) || (this.customer.lastName.localeCompare("") ===0) || (this.customer.email.localeCompare("") ===0) || (this.customer.contactNumber.localeCompare("") ===0)){
+      this.displayErrorMessage('Error creating customer', 'PLease ensure all fields are filled');
+      return;
+    }
     console.log(this.customer);
 
     let postData = {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UtilsService } from '../utils.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-listing',
@@ -11,9 +12,16 @@ import { UtilsService } from '../utils.service';
 export class CustomerListingComponent implements OnInit {
 
   customers: Array<Object>;
+  customerFullList: Array<Object>;
+  searchText: string;
+  searchControl: FormControl;
 
   constructor(private router: Router, private http: HttpClient) { 
     this.customers = Array<Object>();
+    this.customerFullList = Array<Object>();
+    this.searchText = "";
+    this.searchControl = new FormControl();
+
   }
 
   ngOnInit() {
@@ -21,8 +29,13 @@ export class CustomerListingComponent implements OnInit {
 
     result.subscribe((response) => {
       this.customers = response['customers'];
+      this.customerFullList = response['customers'];
       console.log(this.customers);
     })
+
+    this.searchControl.valueChanges.subscribe((search) => {
+      this.customers = this.filterCustomers(search);
+    });
   }
 
   goToEditPage(id){
@@ -31,6 +44,14 @@ export class CustomerListingComponent implements OnInit {
   }
   createCustomerPage(){
     this.router.navigate(['/newcustomer']);
+  }
+
+  filterCustomers(searchValue: string){
+    console.log(searchValue);
+    console.log(this.customers);
+    return this.customerFullList.filter((customer) => {
+      return customer['first_name'].toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
+    })
   }
 
 }

@@ -41,7 +41,7 @@ export class SubscribeServiceComponent implements OnInit {
             let found = false;
 
             for (let userService of this.customerServices){
-              if(currentId === userService['id'])
+              if(currentId === userService['service_id'])
                 found = true;
                 service['subscribed'] = true;
             }
@@ -55,6 +55,25 @@ export class SubscribeServiceComponent implements OnInit {
     })
   }
 
+  unsubscribe(serviceId){
+    let postData = {
+      'customer_id': this.customerId,
+      'service_id': serviceId
+    };
+    console.log('Unsubscribing');
+
+    this.http.post(UtilsService.API_URL + "/unsubscribe", postData).subscribe((response) => {
+      console.log(response);
+      if(response['status'] === 200){
+        this.displaySuccessfullAlert('Successfully subscribed new service');
+        this.router.navigate(['/edit', this.customerId]);
+      }
+      else{
+        this.displayErrorMessage('Subscription Error', 'Error adding subscription')
+      }
+    })
+  }
+
   subscribe(serviceId){
     let postData = {
       'customer_id': this.customerId,
@@ -64,7 +83,7 @@ export class SubscribeServiceComponent implements OnInit {
     this.http.post(UtilsService.API_URL + "/subscribe", postData).subscribe((response) => {
       console.log(response);
       if(response['status'] === 200){
-        this.displaySuccessfullAlert();
+        this.displaySuccessfullAlert('Successfully subscribed new service');
         this.router.navigate(['/edit', this.customerId]);
       }
       else{
@@ -73,7 +92,7 @@ export class SubscribeServiceComponent implements OnInit {
     })
   }
 
-  public displaySuccessfullAlert(){
+  public displaySuccessfullAlert(message: string){
     const toast = swal.mixin({
       toast: true,
       position: 'top-end',
@@ -83,7 +102,7 @@ export class SubscribeServiceComponent implements OnInit {
     
     toast.fire({
       type: 'success',
-      title: 'Successfully created new customer'
+      title: message
     })
   }
 

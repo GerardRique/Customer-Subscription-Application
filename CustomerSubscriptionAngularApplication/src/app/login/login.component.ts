@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit {
 
   public logIn(){
 
+    if((this.data.email.localeCompare("") === 0) || (this.data.password.localeCompare("") === 0)){
+      this.displayErrorMessage('Error Signing up', 'PLease ensure all fields are filled');
+      return;
+    }
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

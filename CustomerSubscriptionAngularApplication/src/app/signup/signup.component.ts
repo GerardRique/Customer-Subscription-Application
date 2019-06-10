@@ -23,6 +23,10 @@ export class SignupComponent implements OnInit {
   public signUp(){
     console.log(this.data.email)
     console.log(this.data.password)
+    if((this.data.email.localeCompare("") === 0) || (this.data.password.localeCompare("") === 0)){
+      this.displayErrorMessage('Error Signing up', 'PLease ensure all fields are filled');
+      return;
+    }
 
     let post_data = {
       email: this.data.email,

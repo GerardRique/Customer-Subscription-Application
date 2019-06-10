@@ -47,3 +47,6 @@ Run the project
 ```bash
 ng serve
 ```
+
+## Database Design
+![](images/CustomerSubscriptionER.png)

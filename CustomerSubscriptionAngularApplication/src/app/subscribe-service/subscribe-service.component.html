@@ -9,7 +9,7 @@
       <td>{{service.name}}</td>
       <td>{{service.price}}</td>
       <td *ngIf="service.subscribed === false"><button type="button" (click)="subscribe(service.id)" class="btn btn-success">Subscribe</button></td>
-      <td *ngIf="service.subscribed === true"><button type="button" class="btn btn-danger">Un-subscribe</button></td>
+      <td *ngIf="service.subscribed === true"><button type="button" (click)="unsubscribe(service.id)" class="btn btn-danger">Un-subscribe</button></td>
     </tr>
   </tbody>
 </table>
